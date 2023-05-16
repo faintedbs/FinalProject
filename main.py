@@ -1,15 +1,13 @@
 # File created by Anthony Garland
-# Source code by: Chris Cozort
-# Agenda:
-# gIT GITHUB    
-# Build file and folder structures
-# Create libraries
-# testing github changes
-# I changed something - I changed something else tooooo!
-
-# This file was created by: Chris Cozort
+"""
+Goals:
+Add Background (done)
+Add Flies (Done)
+Add Sounds
+Add water bucket
+"""
 # Sources: http://kidscancode.org/blog/2016/08/pygame_1-1_getting-started/
-# Sources: 
+
 
 # import libs
 import pygame as pg
@@ -17,15 +15,20 @@ import os
 # import settings 
 from settings import *
 from sprites import *
+from math import pi
 # from pg.sprite import Sprite
+
+pg.mixer.init()
+pg.mixer.music.load("BTD5.mp3")
+pg.mixer.music.play(-1)
+pg.mixer.music.set_volume(0.5)
 
 # set up assets folders
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "image")
 print(game_folder)
 
-# create game class in order to pass properties to the sprites file
-
+# Create game class to import self
 class Game:
     def __init__(self):
         # init game window etc.
@@ -68,7 +71,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
-    # Determines wether window will be running or if space is pressed
+    # Determines wether window is running or not
     def events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -96,7 +99,7 @@ class Game:
                     self.player.vel.y = 0
             else:
                 self.player.standing = False
-# determines the background color as well as the text
+# draws text as well as imports images
     def draw(self):
         self.screen.fill(BLUE)
         # Displaying Player Image
@@ -106,13 +109,11 @@ class Game:
         self.forest.set_colorkey(BLUE)
         forest_rect = self.forest.get_rect()   
         self.screen.blit(self.forest, forest_rect)
-        # self.screen.blit(self.image, person_rect)
         self.all_sprites.draw(self.screen)
-        # if self.player.standing:
-        # if self.player.mob_collide:
-        #     self.draw_text("I have hit an enemy", 24, BLACK, WIDTH/2, HEIGHT/2)
-        # is this a method or a function?
         pg.display.flip()
+
+
+
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('impact')
         font = pg.font.Font(font_name, size)
