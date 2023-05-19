@@ -3,8 +3,12 @@
 Goals:
 Add Background (done)
 Add Flies (Done)
-Add Sounds
-Add water bucket
+Add Sounds (Done)
+Add water 
+"""
+
+"""
+GOAL: Attempt to get rid of the flys by jumping into the water
 """
 # Sources: http://kidscancode.org/blog/2016/08/pygame_1-1_getting-started/
 
@@ -12,10 +16,12 @@ Add water bucket
 # import libs
 import pygame as pg
 import os
+import turtle
 # import settings 
 from settings import *
 from sprites import *
 from math import pi
+
 # from pg.sprite import Sprite
 
 pg.mixer.init()
@@ -102,18 +108,24 @@ class Game:
 # draws text as well as imports images
     def draw(self):
         self.screen.fill(BLUE)
-        # Displaying Player Image
-        self.image = pg.image.load(os.path.join(game_folder, 'person.jpg')).convert()
         self.forest = pg.image.load(os.path.join(game_folder, 'forest.jpg')).convert()
-        self.image.set_colorkey(BLUE)
+        self.image = pg.Surface([WIDTH, HEIGHT])
+        self.image.fill(BLUE)
+        self.image.set_colorkey(BLACK)
+        pg.draw.ellipse(self.image, BLUE, [0, 0, WIDTH, HEIGHT])
+        self.rect = self.image.get_rect()
+        # self.rect.left = x
+        # self.rect.top = y
+        pg.draw.ellipse(self.image, BLUE, [0, 0, 50, 20])
         self.forest.set_colorkey(BLUE)
         forest_rect = self.forest.get_rect()   
         self.screen.blit(self.forest, forest_rect)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
 
+    
 
-
+# Display any text that I would later want to import
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('impact')
         font = pg.font.Font(font_name, size)
@@ -122,9 +134,9 @@ class Game:
         text_rect.midtop = (x,y)
         self.screen.blit(text_surface, text_rect)
         
-    def get_mouse_now(self):
-        x,y = pg.mouse.get_pos()
-        return (x,y)
+    # def get_mouse_now(self):
+    #     x,y = pg.mouse.get_pos()
+    #     return (x,y)
     
     
 
